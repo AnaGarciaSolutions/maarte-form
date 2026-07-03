@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>MAARTE — Place your order</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --espresso:#2C1810; --espresso-mid:#3D2318; --espresso-light:#5C3527;
+    --peony:#E8A0A8; --peony-deep:#D98996; --peony-light:#F2C4C9; --cream:#FAF6F0; --warm-white:#FFFDF9;
+    --text-dark:#1A0F0A; --text-mid:#4A2E22; --border:rgba(44,24,16,0.16); --border-pink:rgba(232,160,168,0.4);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--cream);font-family:'Barlow',sans-serif;color:var(--text-dark);font-size:18px;line-height:1.5;-webkit-text-size-adjust:100%;}
+
+  /* HEADER */
+  .header{background:var(--espresso);padding:34px 22px 28px;text-align:center;position:relative;}
+  .header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--peony),var(--espresso-light),var(--peony));}
+  .brand{font-family:'Cormorant Garamond',serif;font-size:46px;font-weight:600;letter-spacing:0.16em;color:var(--warm-white);line-height:1;}
+  .brand-rule{width:54px;height:2px;background:var(--peony);margin:15px auto 17px;opacity:0.85;}
+  .h-label{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--peony-light);margin-bottom:10px;}
+  .h-title{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:500;color:var(--warm-white);line-height:1.05;letter-spacing:0.02em;}
+  .h-title span{font-style:italic;color:var(--peony-light);}
+  .h-sub{margin-top:12px;font-size:17px;color:rgba(250,246,240,0.75);}
+
+  .intro{background:var(--warm-white);border-bottom:1px solid var(--border);padding:18px 22px;text-align:center;font-size:17px;color:var(--text-mid);line-height:1.55;}
+  .intro b{color:var(--espresso);font-weight:600;}
+
+  .wrap{max-width:560px;margin:0 auto;padding:26px 20px 170px;}
+
+  /* SECTION */
+  .sec-title{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:700;letter-spacing:0.04em;color:var(--espresso);text-transform:uppercase;margin:30px 0 16px;display:flex;align-items:center;gap:12px;}
+  .sec-title .num{background:var(--espresso);color:var(--peony-light);width:34px;height:34px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+  .sec-title:first-of-type{margin-top:8px;}
+
+  .field{margin-bottom:18px;}
+  .row2{display:flex;gap:13px;}
+  .row2 .field{flex:1;}
+  label.fl{display:block;font-size:16px;font-weight:600;color:var(--espresso-light);margin-bottom:7px;}
+  label.fl .opt{color:var(--text-mid);font-weight:400;font-size:15px;}
+  input,select{width:100%;background:var(--warm-white);border:1.5px solid var(--border);border-radius:5px;padding:15px 15px;font-family:'Barlow',sans-serif;font-size:18px;color:var(--text-dark);}
+  input::placeholder{color:rgba(74,46,34,0.45);}
+  input:focus,select:focus{outline:none;border-color:var(--peony-deep);box-shadow:0 0 0 3px rgba(232,160,168,0.25);}
+  select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 12 12'><path d='M2 4l4 4 4-4' fill='none' stroke='%235C3527' stroke-width='1.6'/></svg>");background-repeat:no-repeat;background-position:right 15px center;padding-right:42px;}
+
+  /* PRODUCT */
+  .prod{background:var(--warm-white);border:1.5px solid var(--border);border-radius:6px;padding:18px;margin-bottom:14px;}
+  .prod-top{display:flex;align-items:center;gap:14px;}
+  .prod-info{flex:1;min-width:0;}
+  .prod-name{font-size:20px;font-weight:600;color:var(--espresso);line-height:1.2;}
+  .prod-price{font-size:17px;color:var(--text-mid);margin-top:3px;}
+  .stepper{display:flex;align-items:center;flex-shrink:0;gap:0;}
+  .sbtn{width:52px;height:52px;background:var(--cream);border:1.5px solid var(--border);color:var(--espresso);font-size:28px;line-height:1;cursor:pointer;border-radius:6px;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;}
+  .sbtn:active{background:var(--espresso);color:var(--peony-light);}
+  .qv{width:54px;text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:700;color:var(--espresso);}
+  .promo-tag{margin-top:12px;background:rgba(232,160,168,0.16);border:1px solid var(--border-pink);border-radius:5px;padding:9px 13px;font-size:15.5px;color:var(--espresso-light);font-weight:500;line-height:1.4;}
+  .promo-tag b{color:var(--espresso);}
+
+  /* DELIVERY CARDS */
+  .dnote{font-size:16px;color:var(--text-mid);line-height:1.55;margin-bottom:14px;background:rgba(44,24,16,0.04);border-radius:5px;padding:12px 14px;}
+  .dnote b{color:var(--espresso);font-weight:600;}
+  .pills{display:flex;flex-direction:column;gap:11px;}
+  .pill{background:var(--warm-white);border:1.5px solid var(--border);border-radius:6px;padding:18px 16px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:14px;-webkit-tap-highlight-color:transparent;}
+  .pill.active{border-color:var(--peony-deep);background:rgba(232,160,168,0.1);box-shadow:0 0 0 1.5px var(--peony-deep) inset;}
+  .p-t{font-size:18px;font-weight:600;color:var(--espresso);}
+  .p-s{font-size:16px;color:var(--text-mid);margin-top:3px;}
+  .p-mark{width:26px;height:26px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;position:relative;}
+  .pill.active .p-mark{border-color:var(--peony-deep);}
+  .pill.active .p-mark::after{content:'';position:absolute;inset:5px;border-radius:50%;background:var(--peony-deep);}
+
+  /* SUMMARY */
+  .summary{background:var(--warm-white);border:1.5px solid var(--border);border-radius:6px;overflow:hidden;margin-top:26px;}
+  .summary-head{background:var(--espresso);padding:14px 18px;font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--peony-light);}
+  .summary-body{padding:18px;}
+  .sum-row{display:flex;justify-content:space-between;gap:14px;font-size:17px;padding:6px 0;color:var(--text-dark);}
+  .sum-row.promo{color:var(--peony-deep);font-weight:600;}
+  .sum-row.ship{color:var(--text-mid);}
+  .sum-row.total{border-top:2px solid var(--border);margin-top:10px;padding-top:14px;align-items:baseline;}
+  .sum-row.total .lbl{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--espresso);}
+  .sum-row.total .amt{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:600;font-style:italic;color:var(--espresso);}
+  .sum-empty{font-size:17px;color:var(--text-mid);text-align:center;padding:8px 0;}
+
+  .copy-block{background:var(--warm-white);border:1.5px solid var(--border);border-radius:6px;overflow:hidden;margin-top:16px;}
+  .copy-head{background:var(--espresso-mid);padding:12px 16px;font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--peony-light);}
+  .copy-body{padding:16px;}
+  .copy-text{font-size:16px;line-height:1.7;color:var(--text-dark);white-space:pre-wrap;}
+  .copy-how{font-size:16px;color:var(--text-mid);line-height:1.6;margin-top:14px;}
+  .copy-how b{color:var(--espresso);font-weight:600;}
+
+  .footer{text-align:center;padding:8px 20px 4px;}
+  .footer .fb{font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;color:var(--espresso-light);}
+
+  /* STICKY BAR */
+  .bar{position:fixed;left:0;right:0;bottom:0;background:var(--espresso);border-top:3px solid var(--peony);padding:15px 20px calc(15px + env(safe-area-inset-bottom));display:flex;align-items:center;gap:16px;z-index:20;}
+  .bar-eq{flex:1;min-width:0;}
+  .bar-label{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--peony);}
+  .bar-total{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:600;color:var(--peony-light);font-style:italic;line-height:1.1;margin-top:2px;}
+  .bar-btn{background:var(--peony);color:var(--espresso);border:none;border-radius:6px;padding:18px 22px;font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;flex-shrink:0;-webkit-tap-highlight-color:transparent;}
+  .bar-btn:disabled{opacity:0.4;}
+  .bar-btn.copied{background:var(--peony-light);}
+
+  @media (max-width:430px){
+    .h-title{font-size:36px;} .row2{flex-direction:column;gap:0;}
+    .bar-total{font-size:26px;} .bar-btn{padding:16px 16px;font-size:16px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="brand">MAARTE</div>
+  <div class="brand-rule"></div>
+  <div class="h-label" id="hLabel">Pre-order · July 22 dispatch</div>
+  <div class="h-title">Place your <span>order</span></div>
+  <div class="h-sub">Fill this in, then send it to us to reserve your slot.</div>
+</div>
+
+<div class="intro">Choose what you would like below. Your total updates as you go. When you are done, tap <b>Copy &amp; send</b> and message it to us on Instagram.</div>
+
+<div class="wrap">
+
+  <div class="sec-title"><span class="num">1</span> Your details</div>
+  <div class="row2">
+    <div class="field"><label class="fl">First name</label><input type="text" id="fFirst" oninput="render()" placeholder="Juana"></div>
+    <div class="field"><label class="fl">Surname</label><input type="text" id="fLast" oninput="render()" placeholder="dela Cruz"></div>
+  </div>
+  <div class="field"><label class="fl">Mobile number</label><input type="tel" id="fMobile" oninput="render()" placeholder="0917 123 4567"></div>
+  <div class="field"><label class="fl">Email</label><input type="email" id="fEmail" oninput="render()" placeholder="you@email.com"></div>
+
+  <div class="sec-title"><span class="num">2</span> Delivery address</div>
+  <div class="field"><label class="fl">House number / unit <span class="opt" id="addrOpt"></span></label><input type="text" id="aHouse" oninput="render()" placeholder="e.g. 12B"></div>
+  <div class="field"><label class="fl">Street</label><input type="text" id="aStreet" oninput="render()" placeholder="e.g. Mabini Street"></div>
+  <div class="field"><label class="fl">Barangay</label><input type="text" id="aBrgy" oninput="render()" placeholder="e.g. Barangay San Antonio"></div>
+  <div class="field"><label class="fl">City / Municipality</label><input type="text" id="aCity" oninput="render()" placeholder="e.g. Pasig City"></div>
+  <div class="field"><label class="fl">Province</label><select id="aProv" onchange="render()"><option value="">Select your province</option></select></div>
+  <div class="field"><label class="fl">ZIP code</label><input type="tel" id="aZip" oninput="render()" placeholder="e.g. 1600"></div>
+
+  <div class="sec-title"><span class="num">3</span> What would you like?</div>
+  <div id="products"></div>
+
+  <div class="sec-title"><span class="num">4</span> How would you like to get it?</div>
+  <div class="dnote">We work out your shipping fee from the <b>province</b> you chose above, so you do not need to know Metro Manila or provincial yourself.</div>
+  <div class="pills" id="pills"></div>
+
+  <div class="summary">
+    <div class="summary-head">Your order</div>
+    <div class="summary-body" id="summaryBody"></div>
+  </div>
+
+  <div class="copy-block">
+    <div class="copy-head">Copy this and send it to us</div>
+    <div class="copy-body">
+      <div class="copy-text" id="copyText"></div>
+      <div class="copy-how">Tap <b>Copy &amp; send</b> at the bottom, then paste it in a message to <b>@maartebrand</b> on Instagram. We will reply with your payment details.</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer"><div class="fb">For all of the ways you are maarte.</div></div>
+
+<div class="bar">
+  <div class="bar-eq">
+    <div class="bar-label">Your total</div>
+    <div class="bar-total" id="barTotal">₱0</div>
+  </div>
+  <button class="bar-btn" id="barBtn" onclick="copyOrder(this)" disabled>Copy &amp; send</button>
+</div>
+
+<script>
+/* ===== CONFIG ===== */
+const DISPATCH = "July 22";
+const COURIER = { mm:300, prov:350 };            // shipping per box: Metro Manila vs provincial
+const PROMO = { totePin:99, capGroup:10 };       // tote+pin set: -99 each; every 10 caps: 1 free
+const PRODUCTS = [
+  { id:"tote", name:"MAARTE Tote Bag", emoji:"👜", price:1599, perBox:1,  promo:"Pair a tote with a pin and save ₱99." },
+  { id:"pins", name:"MAARTE Pins",     emoji:"📌", price:499,  perBox:99, promo:"Pair a pin with a tote and save ₱99." },
+  { id:"cap",  name:"MAARTE Cap",      emoji:"🧢", price:799,  perBox:5,  promo:"Buy 10 caps and get 1 free." }
+];
+
+/* Metro Manila (NCR) ships at the MM rate. Every other province is provincial. */
+const PROVINCES = {
+  "Metro Manila (NCR)": ["Metro Manila"],
+  "Luzon": ["Abra","Albay","Apayao","Aurora","Bataan","Batanes","Batangas","Benguet","Bulacan","Cagayan","Camarines Norte","Camarines Sur","Catanduanes","Cavite","Ifugao","Ilocos Norte","Ilocos Sur","Isabela","Kalinga","La Union","Laguna","Marinduque","Masbate","Mountain Province","Nueva Ecija","Nueva Vizcaya","Occidental Mindoro","Oriental Mindoro","Palawan","Pampanga","Pangasinan","Quezon","Quirino","Rizal","Romblon","Sorsogon","Tarlac","Zambales"],
+  "Visayas": ["Aklan","Antique","Biliran","Bohol","Capiz","Cebu","Eastern Samar","Guimaras","Iloilo","Leyte","Negros Occidental","Negros Oriental","Northern Samar","Samar","Siquijor","Southern Leyte"],
+  "Mindanao": ["Agusan del Norte","Agusan del Sur","Basilan","Bukidnon","Camiguin","Cotabato","Davao de Oro","Davao del Norte","Davao del Sur","Davao Occidental","Davao Oriental","Dinagat Islands","Lanao del Norte","Lanao del Sur","Maguindanao del Norte","Maguindanao del Sur","Misamis Occidental","Misamis Oriental","Sarangani","South Cotabato","Sultan Kudarat","Sulu","Surigao del Norte","Surigao del Sur","Tawi-Tawi","Zamboanga del Norte","Zamboanga del Sur","Zamboanga Sibugay"]
+};
+
+const DELIVERY = [
+  { id:"courier", title:"Courier delivery", pickup:false },
+  { id:"pickup",  title:"Pick-up in Kamias, QC", sub:"No shipping fee", pickup:true }
+];
+
+let qty = {}; PRODUCTS.forEach(p => qty[p.id] = 0);
+let delivery = "courier";
+
+document.getElementById("hLabel").textContent = "Pre-order · " + DISPATCH + " dispatch";
+
+/* province dropdown */
+(function(){
+  const sel = document.getElementById("aProv");
+  for (const group in PROVINCES) {
+    const og = document.createElement("optgroup"); og.label = group;
+    PROVINCES[group].forEach(p => { const o=document.createElement("option"); o.value=p; o.textContent=p; og.appendChild(o); });
+    sel.appendChild(og);
+  }
+})();
+
+/* products */
+document.getElementById("products").innerHTML = PRODUCTS.map(p => `
+  <div class="prod">
+    <div class="prod-top">
+      <div class="prod-info">
+        <div class="prod-name">${p.emoji} ${p.name}</div>
+        <div class="prod-price">₱${p.price.toLocaleString()} each</div>
+      </div>
+      <div class="stepper">
+        <button class="sbtn" onclick="bump('${p.id}',-1)" aria-label="remove one ${p.name}">–</button>
+        <span class="qv" id="q-${p.id}">0</span>
+        <button class="sbtn" onclick="bump('${p.id}',1)" aria-label="add one ${p.name}">+</button>
+      </div>
+    </div>
+    <div class="promo-tag">✨ <b>${p.promo}</b></div>
+  </div>`).join("");
+
+/* delivery */
+document.getElementById("pills").innerHTML = DELIVERY.map(d => {
+  const sub = d.pickup ? d.sub : `<span id="courierSub">Fee set from your province</span>`;
+  return `<button class="pill ${d.id===delivery?'active':''}" id="pill-${d.id}" onclick="setDelivery('${d.id}')">
+    <div><div class="p-t">${d.title}</div><div class="p-s">${sub}</div></div><div class="p-mark"></div></button>`;
+}).join("");
+
+function bump(id, dir){ qty[id]=Math.max(0, qty[id]+dir); document.getElementById("q-"+id).textContent=qty[id]; render(); }
+function setDelivery(id){ delivery=id; DELIVERY.forEach(d=>document.getElementById("pill-"+d.id).classList.toggle("active", d.id===id)); render(); }
+function val(id){ return document.getElementById(id).value.trim(); }
+function peso(x){ return "₱"+x.toLocaleString(); }
+
+function zoneInfo(){
+  const prov = val("aProv");
+  if (prov === "Metro Manila") return { rate:COURIER.mm, zone:"Metro Manila", known:true };
+  if (prov) return { rate:COURIER.prov, zone:"Provincial", known:true };
+  return { rate:COURIER.prov, zone:null, known:false };
+}
+
+function compute(){
+  const d = DELIVERY.find(x=>x.id===delivery);
+  const z = zoneInfo();
+  const totes=qty.tote, pins=qty.pins, caps=qty.cap;
+  const anyItem = (totes+pins+caps) > 0;
+
+  let lines = [];
+  PRODUCTS.forEach(p => { if (qty[p.id]>0) lines.push({ p, n:qty[p.id], lineTotal:qty[p.id]*p.price }); });
+  const subtotal = lines.reduce((s,l)=>s+l.lineTotal, 0);
+
+  const setCount = Math.min(totes, pins);
+  const setDisc  = setCount * PROMO.totePin;
+  const freeCaps = Math.floor(caps / PROMO.capGroup);
+  const capDisc  = freeCaps * PRODUCTS.find(p=>p.id==="cap").price;
+
+  const boxes = anyItem ? Math.max(Math.ceil(caps/5), totes, 1) : 0;
+  const shipping = d.pickup ? 0 : boxes * z.rate;
+
+  const total = subtotal - setDisc - capDisc + shipping;
+  return { d, z, lines, subtotal, setCount, setDisc, freeCaps, capDisc, boxes, shipping, total, anyItem };
+}
+
+function render(){
+  const c = compute();
+  document.getElementById("addrOpt").textContent = c.d.pickup ? "(not needed for pick-up)" : "";
+
+  const cs = document.getElementById("courierSub");
+  if (cs) cs.textContent = c.z.known ? `${peso(c.z.rate)} per box · ${c.z.zone}` : "Fee set from your province";
+
+  document.getElementById("barTotal").textContent = peso(c.total);
+  document.getElementById("barBtn").disabled = !c.anyItem;
+
+  // on-screen summary
+  const body = document.getElementById("summaryBody");
+  if (!c.anyItem) {
+    body.innerHTML = `<div class="sum-empty">Add an item above to see your total.</div>`;
+  } else {
+    let html = c.lines.map(l => `<div class="sum-row"><span>${l.p.emoji} ${l.p.name} · ${l.n} × ${peso(l.p.price)}</span><span>${peso(l.lineTotal)}</span></div>`).join("");
+    if (c.setDisc>0) html += `<div class="sum-row promo"><span>✨ Tote + pin set (${c.setCount} × −₱99)</span><span>−${peso(c.setDisc)}</span></div>`;
+    if (c.capDisc>0) html += `<div class="sum-row promo"><span>✨ Buy 10 caps, ${c.freeCaps} free</span><span>−${peso(c.capDisc)}</span></div>`;
+    if (c.d.pickup) html += `<div class="sum-row ship"><span>Pick-up in Kamias, QC</span><span>No fee</span></div>`;
+    else html += `<div class="sum-row ship"><span>Shipping${c.z.known?' · '+c.z.zone:''} (${c.boxes} box${c.boxes>1?'es':''})</span><span>${peso(c.shipping)}</span></div>`;
+    html += `<div class="sum-row total"><span class="lbl">Total</span><span class="amt">${peso(c.total)}</span></div>`;
+    body.innerHTML = html;
+  }
+
+  buildCopy(c);
+}
+
+function buildCopy(c){
+  const name=[val("fFirst"),val("fLast")].filter(Boolean).join(" "), mobile=val("fMobile"), email=val("fEmail");
+  const addr=[ [val("aHouse"),val("aStreet")].filter(Boolean).join(" "), val("aBrgy"), val("aCity"), val("aProv"), val("aZip") ].filter(Boolean).join(", ");
+  let delLine;
+  if (c.d.pickup) delLine = "Delivery: Pick-up in Kamias, QC";
+  else { const z = c.z.known ? ` · ${c.z.zone} (${peso(c.z.rate)}/box)` : ""; delLine = "Address: "+(addr||"")+"\nDelivery: Courier"+z; }
+
+  let items = c.lines.map(l => `${l.p.emoji} ${l.p.name}: ${l.n} × ${peso(l.p.price)} = ${peso(l.lineTotal)}`).join("\n");
+  let promos = "";
+  if (c.setDisc>0) promos += `\n✨ Tote + pin set: −${peso(c.setDisc)}`;
+  if (c.capDisc>0) promos += `\n✨ Buy 10 caps, ${c.freeCaps} free: −${peso(c.capDisc)}`;
+  const ship = c.d.pickup ? "🏠 Pick-up: no shipping fee" : `🚚 Shipping${c.z.known?' ('+c.z.zone+')':''}: ${peso(c.shipping)}`;
+
+  document.getElementById("copyText").textContent = !c.anyItem
+    ? "Add an item above to build your order."
+    :
+`My MAARTE order 🤎
+
+Name: ${name||""}
+Mobile: ${mobile||""}
+Email: ${email||""}
+${delLine}
+
+${items}${promos}
+${ship}
+
+Total: ${peso(c.total)}
+Dispatch: ${DISPATCH}`;
+}
+
+function copyOrder(btn){
+  navigator.clipboard.writeText(document.getElementById("copyText").textContent).then(()=>{
+    btn.textContent="✓ Copied"; btn.classList.add("copied");
+    setTimeout(()=>{ btn.innerHTML="Copy &amp; send"; btn.classList.remove("copied"); }, 2200);
+  });
+}
+
+render();
+</script>
+</body>
+</html>
